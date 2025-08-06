@@ -4,12 +4,13 @@ import { Question } from "../models/question.models.js";
 import { User } from "../models/user.models.js";
 
 const router = express.Router();
+router.use(verifyToken, verifyAdmin);
 
-router.post("/add-question", verifyToken, verifyAdmin, async (req, res) => {
+router.post("/add-question", async (req, res) => {
     const quesData = req.body;
     const { question } = quesData;
 
-    if (!question || !quesData.options || !quesData.category || !quesData.difficulty || !quesData.correctAnswer || !quesData.explanation) {
+    if (!question || !quesData.options || !quesData.category || !quesData.section || !quesData.correctAnswer || !quesData.explanation) {
         return res.status(400).json({ message: "All fields required!" });
     }
 
@@ -24,12 +25,12 @@ router.post("/add-question", verifyToken, verifyAdmin, async (req, res) => {
     res.status(200).json({ message: "New question entered!", quesData });
 });
 
-router.put("/update-question/:id", verifyToken, verifyAdmin, async (req, res) => {
+router.put("/update-question/:id", async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
     const { question } = updatedData;
 
-    if (!question || !updatedData.options || !updatedData.category || !updatedData.difficulty || !updatedData.correctAnswer || !updatedData.explanation) {
+    if (!question || !updatedData.options || !updatedData.category || !updatedData.section || !updatedData.correctAnswer || !updatedData.explanation) {
         return res.status(400).json({ message: "All fields required!" });
     }
 
@@ -42,7 +43,7 @@ router.put("/update-question/:id", verifyToken, verifyAdmin, async (req, res) =>
     }
 })
 
-router.delete("/delete-question/:id", verifyToken, verifyAdmin, async (req, res) => {
+router.delete("/delete-question/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -53,7 +54,7 @@ router.delete("/delete-question/:id", verifyToken, verifyAdmin, async (req, res)
     }
 });
 
-router.get("/search-question/:id", verifyToken, verifyAdmin, async (req, res) => {
+router.get("/search-question/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -65,7 +66,7 @@ router.get("/search-question/:id", verifyToken, verifyAdmin, async (req, res) =>
     }
 })
 
-router.get("/all-questions", verifyToken, verifyAdmin, async (req, res) => {
+router.get("/all-questions", async (req, res) => {
     const { category, difficulty } = req.query;
 
     const query = {};
@@ -76,7 +77,7 @@ router.get("/all-questions", verifyToken, verifyAdmin, async (req, res) => {
     res.status(200).json(questions);
 })
 
-router.get("/fetch-users", verifyToken, verifyAdmin, async (req, res) => {
+router.get("/fetch-users", async (req, res) => {
     try {
         const users = await User.find({});
         res.send(users);
@@ -85,7 +86,7 @@ router.get("/fetch-users", verifyToken, verifyAdmin, async (req, res) => {
     }
 })
 
-router.delete("/delete-user/:id", verifyToken, verifyAdmin, async (req, res) => {
+router.delete("/delete-user/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
