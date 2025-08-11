@@ -1,7 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import "dotenv/config"
+import "dotenv/config";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 
 import connectDB from "./db/database.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -13,8 +15,14 @@ import adminRoutes from "./routes/adminRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
 app.use(bodyParser.json());
 app.use(cors({ origin: "http://localhost:5173" }));
+app.use(helmet());
+app.use(rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100
+}));
 
 app.get('/', (req, res) => {
     res.send("Server is running.");
