@@ -35,7 +35,7 @@ function Header() {
 
     return (
         <nav id="header" className="w-full h-[10vh] font-mono px-10 py-4 flex items-center justify-between fixed top-0 left-0 right-0 z-10 transition-all bg-gray-300 dark:bg-gray-900 dark:text-white">
-            <h1 className="text-3xl font-bold">GIAR</h1>
+            <h1 className="text-3xl font-bold cursor-pointer" onClick={() => navigate('/')}>GIAR</h1>
             {
                 isLogged && (
                     <>
@@ -93,13 +93,13 @@ function Header() {
                             {theme === "light" ? <MdDarkMode /> : <MdOutlineLightMode />}
                         </button>
                         <button
-                            className="px-4 py-2 bg-white font-bold text-blue-500 border-blue-500 rounded hover:bg-blue-500 hover:text-white border-2 transition-all"
+                            className="px-4 py-2 bg-white dark:bg-slate-700 font-bold dark:text-white rounded hover:bg-blue-500 hover:text-white transition-all"
                             onClick={() => { navigate("/signup") }}
                         >
                             SignUp
                         </button>
                         <button
-                            className="px-4 py-2 bg-white font-bold text-green-500 border-green-500 hover:text-white rounded hover:bg-green-500 border-2 transition-all"
+                            className="px-4 py-2 bg-white dark:bg-slate-700 font-bold dark:text-white hover:text-white rounded hover:bg-green-500 transition-all"
                             onClick={() => { navigate("/login") }}
                         >
                             Login

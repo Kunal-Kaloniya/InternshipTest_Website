@@ -37,24 +37,41 @@ function Login() {
     }
 
     return (
-        <div className="w-full h-[100vh] flex items-center justify-center bg-gray-900 font-mono">
-            <div className="border min-w-md h-auto mx-auto bg-white rounded">
-                <h1 className="text-center font-bold text-5xl m-5">Login</h1>
+        <div className="w-full h-[100vh] flex items-center justify-center bg-white dark:bg-slate-700 transition-colors font-mono">
+            <div className="min-w-md h-auto mx-auto text-black dark:text-white bg-gray-200 dark:bg-slate-800 rounded-md">
+                <h1 className="text-center font-semibold text-5xl m-5">Login</h1>
                 <form onSubmit={handleLogin} className="flex flex-col p-5">
 
-                    <label htmlFor="email" className="text-sm">E-mail:</label>
-                    <input type="email" name="email" onChange={handleChange} value={form.email} className="min-w-full h-15 mb-3 px-3 outline-0 border text-md rounded-sm" />
+                    <label htmlFor="email" className="text-sm mb-1">E-mail:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        onChange={handleChange}
+                        value={form.email}
+                        className="min-w-full h-15 mb-3 px-3 outline-0 bg-white dark:bg-slate-700 shadow-2xl text-md rounded-sm"
+                    />
 
-                    <label htmlFor="email" className="text-sm">Password:</label>
-                    <input type="password" name="password" onChange={handleChange} value={form.password} className="min-w-full h-15 mb-3 px-3 outline-0 border text-md rounded-sm" />
+                    <label htmlFor="email" className="text-sm mb-1">Password:</label>
+                    <input
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                        value={form.password}
+                        className="min-w-full h-15 mb-3 px-3 outline-0 bg-white dark:bg-slate-700 shadow-2xl text-md rounded-sm"
+                    />
 
-                    <button type="submit" className="border px-4 py-2 w-50 mx-auto mt-8">Login</button>
+                    <button
+                        type="submit"
+                        className="px-4 py-2 w-50 mx-auto mt-8 rounded-md bg-white dark:bg-slate-500 hover:bg-green-500 hover:text-white transition-all"
+                    >
+                        Login
+                    </button>
                 </form>
 
 
                 <p className="mx-5 mb-3 text-[12px]">
                     New here?
-                    <Link to="/signup" className="text-blue-500 pl-2 font-extralight">SignUp</Link>
+                    <Link to="/signup" className="text-blue-500 pl-2 font-bold">SignUp</Link>
                 </p>
 
                 {

@@ -10,7 +10,7 @@ import Quiz from "./pages/Quiz.jsx";
 import Result from "./pages/Result.jsx";
 import Admin from "./pages/Admin.jsx";
 import { useContext } from "react";
-import Layout from "../Layout.jsx";
+import Layout from "./components/Layout.jsx";
 
 function App() {
 
