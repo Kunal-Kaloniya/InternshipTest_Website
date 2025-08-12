@@ -129,23 +129,32 @@ function Quiz() {
     }
 
     return (
-        <div className="font-mono relative min-h-screen pt-[10vh] bg-white text-black dark:bg-gray-700 dark:text-white transition-all">
+        <div className="font-mono relative bg-white text-black dark:bg-gray-700 dark:text-white transition-all">
             <div className="flex">
-                <nav id="navBar" className="w-[20vw] px-4 py-10 bg-gray-300 text-black dark:text-white dark:bg-gray-900 transition-all">
-                    <h2 className="text-center mb-2 underline text-xl">Quiz Stats:</h2>
-                    <h3 className="w-full py-2 text-center text-xl mb-3 rounded bg-gray-200 text-black shadow-2xl">Total questions: {questions.length}</h3>
-                    <h3 className="w-full py-2 text-center text-xl mb-3 rounded bg-gray-200 text-black shadow-2xl">Questions Attempted: {Object.keys(selectedAnswers).length}</h3>
-                    <h3 className="w-full py-2 text-center text-xl mb-3 rounded bg-gray-200 text-black shadow-2xl">Questions Remaining: {questions.length - Object.keys(selectedAnswers).length}</h3>
+                <nav className="md:w-[20vw] px-4 py-10 bg-gray-300 text-black dark:text-white dark:bg-gray-900 transition-all">
+                    <h2 className="text-center mb-4 font-semibold text-lg border-b pb-2">Quiz Stats:</h2>
 
-                    <h2 className="text-center mt-5 mb-2 underline text-xl">Your Answers:</h2>
-                    <div id="selected-answers" className="h-auto px-2 py-5 mb-5 rounded text-center bg-gray-200 text-black shadow-2xl grid grid-cols-5 gap-2">
+                    <div className="space-y-3 mb-6">
+                        <div className="p-3 text-center bg-white dark:bg-gray-800 rounded shadow font-medium">
+                            Total Questions: <span className="font-bold">{questions.length}</span>
+                        </div>
+                        <div className="p-3 text-center bg-white dark:bg-gray-800 rounded shadow font-medium">
+                            Attempted: <span className="font-bold">{Object.keys(selectedAnswers).length}</span>
+                        </div>
+                        <div className="p-3 text-center bg-white dark:bg-gray-800 rounded shadow font-medium">
+                            Remaining: <span className="font-bold">{questions.length - Object.keys(selectedAnswers).length}</span>
+                        </div>
+                    </div>
+
+                    <h2 className="text-center mb-2 font-semibold text-lg border-b pb-2">Your Answers:</h2>
+                    <div id="selected-answers" className="h-auto px-2 py-5 mb-5 rounded text-center bg-white dark:bg-gray-800 text-black shadow-2xl grid grid-cols-5 gap-2">
                         {
                             questions.length !== 0 && (
                                 <>
                                     {questions.map((q, index) => (
                                         <div
                                             key={index}
-                                            className={`py-3 rounded-md bg-gray-400 dark:bg-gray-700 dark:text-white ${selectedAnswers[q._id] && "bg-green-400 dark:bg-green-500"}`}
+                                            className={`py-3 rounded-md bg-gray-400 dark:bg-gray-700 dark:text-white transition-colors ${selectedAnswers[q._id] && "bg-green-400 dark:bg-green-500"}`}
                                         >
                                             {index + 1}
                                         </div>
@@ -155,36 +164,49 @@ function Quiz() {
                         }
                     </div>
 
-                    <h2 className={`${timeLeft <= 30 && "text-red-600"} w-full py-2 text-center text-xl rounded bg-gray-200 text-black shadow-2xl`}>
+                    <h2 className={`${timeLeft <= 30 && "text-red-600"} mt-6 p-3 text-center font-bold text-lg rounded bg-white dark:bg-gray-800 shadow`}>
                         Time Left: {formatTime(timeLeft)}
                     </h2>
                 </nav>
                 <div id="main" className={`w-[80vw] h-[90vh] bg-gray-200 text-black dark:bg-gray-800 dark:text-white py-5 px-20 relative transition-all`}>
                     {
-                        questions.length !== 0 && (
+                        questions.length > 0 && (
                             <div>
-                                <h2 className="text-center text-3xl font-extrabold italic">
-                                    {currentQuestion < 6 ? "Section A: About GIAR"
-                                        : currentQuestion < 11 ? "Section B: General Science"
-                                            : currentQuestion < 16 ? "Section C: Research Aptitude"
-                                                : "Section D: Domain Knowledge"}
+                                <h2 className="text-center text-3xl font-bold italic mb-6">
+                                    {currentQuestion < 6
+                                        ? "Section A: About GIAR" : currentQuestion < 11
+                                            ? "Section B: General Science" : currentQuestion < 16
+                                                ? "Section C: Research Aptitude" : "Section D: Domain Knowledge"
+                                    }
                                 </h2>
                                 <h2 className="text-2xl mt-10 font-bold">Q.{currentQuestion + 1}: {questions[currentQuestion].question}</h2>
-                                <div id="options" className="my-5">
+                                <div id="options" className="mt-10 space-y-4">
                                     {questions[currentQuestion].options.map((option, index) => {
                                         const optionId = `${questions[currentQuestion]._id}-${index}`
                                         return (
-                                            <div key={index} className="text-xl space-x-3 space-y-8 ">
+                                            <label
+                                                key={optionId}
+                                                htmlFor={optionId}
+                                                className={`block border rounded-lg px-4 py-3 cursor-pointer transition ${selectedAnswers[questions[currentQuestion]._id] === option
+                                                    ? "bg-green-100 border-green-500 text-black"
+                                                    : "bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
+                                                    }`}
+                                            >
                                                 <input
                                                     type="radio"
+                                                    id={optionId}
                                                     name={`question-${questions[currentQuestion]._id}`}
                                                     value={option}
-                                                    id={optionId}
-                                                    onChange={() => handleChange(questions[currentQuestion]._id, option)}
-                                                    checked={selectedAnswers[questions[currentQuestion]._id] === option}
+                                                    onChange={() =>
+                                                        handleChange(questions[currentQuestion]._id, option)
+                                                    }
+                                                    checked={
+                                                        selectedAnswers[questions[currentQuestion]._id] === option
+                                                    }
+                                                    className="hidden"
                                                 />
-                                                <label htmlFor={optionId}>{option}</label>
-                                            </div>
+                                                {option}
+                                            </label>
                                         )
                                     })}
                                 </div>
@@ -193,23 +215,26 @@ function Quiz() {
                     }
 
                     <footer className="absolute bottom-0 left-0 right-0 bg-gray-300 text-black dark:bg-gray-900 px-10 py-4 flex items-center justify-between">
+                        <div className="flex gap-6">
+                            <button
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded shadow"
+                                onClick={handlePrevious}
+                            >
+                                Previous
+                            </button>
+                            <button
+                                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded shadow"
+                                onClick={handleNext}
+                            >
+                                Next
+                            </button>
+                        </div>
+
                         <button
-                            className="bg-blue-400 text-xl rounded px-3 py-1 border-2 border-blue-400 hover:shadow-2xl hover:border-black transition-all"
-                            onClick={handlePrevious}
-                        >
-                            Previous
-                        </button>
-                        <button
-                            className="bg-white text-xl rounded px-3 py-1 border-2 border-white hover:shadow-2xl hover:border-black transition-all"
+                            className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded shadow"
                             onClick={handleSubmit}
                         >
                             Submit
-                        </button>
-                        <button
-                            className="bg-green-400 text-xl rounded px-3 py-1 border-2 border-green-400 hover:shadow-2xl hover:border-black transition-all"
-                            onClick={handleNext}
-                        >
-                            Next
                         </button>
                     </footer>
                 </div>
