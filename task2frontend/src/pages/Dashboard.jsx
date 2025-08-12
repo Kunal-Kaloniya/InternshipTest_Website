@@ -31,40 +31,49 @@ function Dashboard() {
     }, [])
 
     return (
-        <div className="font-mono min-h-screen pt-[10vh] transition-all dark:bg-gray-700 dark:text-white">
-            <div className="flex items-center justify-around dark:text-black">
-                <div className="flex flex-col items-center my-5 rounded-xl border-1 border-gray-400 bg-gray-400 px-20 py-10">
-                    <div className="w-[100px] h-[100px] bg-gray-700 text-white dark:bg-gray-300 dark:text-gray-900 flex items-center justify-center font-extrabold text-5xl rounded-full my-5">
+        <div className="font-mono min-h-screen transition-all dark:bg-gray-900 dark:text-white">
+
+            <section className="max-w-7xl mx-auto mt-5 flex lg:flex-row md:flex-col sm:flex-col items-stretch justify-center gap-6">
+                <div className="flex flex-col items-center flex-1/3 rounded-xl bg-white dark:bg-gray-800 px-20 py-10">
+                    <div className="w-24 h-24 bg-blue-600 text-white dark:bg-blue-400 dark:text-gray-900 flex items-center justify-center font-extrabold text-5xl rounded-full my-5">
                         {user?.username[0].toUpperCase()}
                     </div>
-                    <h1 className="text-center text-2xl font-extrabold">{user?.username}</h1>
-                    <h1>Total quizes attempted: {history?.length}</h1>
+                    <h1 className="mt-4 text-2xl font-extrabold">{user?.username}</h1>
+                    <p className="text-gray-500 dark:text-gray-300 mt-1">
+                        Total tests attempted: <span className="font-bold">{history?.length}</span>
+                    </p>
+                    <button
+                        className="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all"
+                        onClick={() => navigate('/home')}
+                    >
+                        Take a Test
+                    </button>
                 </div>
 
-                <Leaderboard />
-            </div>
+                <div className="flex-2/3 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                    <Leaderboard />
+                </div>
+            </section>
 
-            <hr className="w-[90%] m-auto" />
-            <div className="text-center max-w-[90vw] m-auto mt-5">
-                <h1 className="font-bold text-2xl">Quiz History</h1>
-                <div className="grid grid-cols-3 gap-5 my-5">
-                    {
-                        history ? (
-                            history.map((q, index) => (
-                                <div key={index} className="rounded-md p-5 bg-gray-300 dark:bg-slate-600 shadow-lg text-black">
-                                    <h1 className="text-xl font-bold mb-2">{q.quizMeta.category} Test</h1>
-                                    <p>Score Obtained: {q.score} out of 20</p>
-                                    <p>Questions attempted: {q.questionsAttempted}</p>
-                                    <p>Incorrect questions: {q.questionsAttempted - q.score}</p>
+            <section className="max-w-7xl mx-auto text-center mt-10 p-6">
+                <h1 className="text-2xl font-bold mb-6 border-b border-gray-300 dark:border-gray-700 pb-2">Quiz History</h1>
+                {
+                    history ? (
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {history.map((q, index) => (
+                                <div key={index} className="bg-gray-100 dark:bg-gray-700 rounded-lg p-5 shadow-md hover:shadow-xl transition-shadow">
+                                    <h3 className="text-lg font-semibold mb-2">{q.quizMeta.category} Test</h3>
+                                    <p className="text-sm">Score: <span className="font-bold">{q.score}</span> / 20</p>
+                                    <p className="text-sm">Questions Attempted: {q.questionsAttempted}</p>
+                                    <p className="text-sm text-red-400">Incorrect: {q.questionsAttempted - q.score}</p>
                                 </div>
-                            ))
-                        ) : (<p>You have not taken any quiz.</p>)
-                    }
-                </div>
-            </div>
-            <div>
-                <button className="bg-white text-xl text-blue-500 rounded px-3 py-1 border-2 mt-5 border-blue-500 hover:shadow-2xl hover:bg-blue-500 hover:text-white transition-all absolute bottom-5 right-15" onClick={() => navigate('/home')}>Take a Quiz</button>
-            </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-gray-500 dark:text-gray-400">You have not taken any test yet.</p>
+                    )
+                }
+            </section>
         </div>
     );
 }
