@@ -27,7 +27,7 @@ function IntroPage() {
             </main>
 
             {/* Footer */}
-            <footer className="w-full text-center py-4 border-t text-sm dark:bg-slate-900">
+            <footer className="w-full text-center py-4 text-sm bg-gray-300 dark:bg-slate-900">
                 Made by Kunal • QuizApp__ © 2025
             </footer>
         </div>
