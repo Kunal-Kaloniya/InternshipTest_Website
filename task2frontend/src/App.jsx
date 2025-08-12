@@ -8,7 +8,7 @@ import { AuthContext } from "./context/AuthContext";
 import IntroPage from "./pages/IntroPage.jsx";
 import Quiz from "./pages/Quiz.jsx";
 import Result from "./pages/Result.jsx";
-import Admin from "./pages/Admin.jsx";
+import Admin from "./pages/AdminPage/Admin.jsx";
 import { useContext } from "react";
 import Layout from "./components/Layout.jsx";
 

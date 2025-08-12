@@ -34,7 +34,7 @@ function Header() {
     }
 
     return (
-        <nav id="header" className="w-full h-[10vh] font-mono px-10 py-4 flex items-center justify-between fixed top-0 left-0 right-0 z-10 transition-all bg-gray-300 dark:bg-gray-900 dark:text-white">
+        <nav id="header" className="w-full h-[10vh] font-mono px-10 py-4 flex items-center justify-between fixed top-0 left-0 right-0 z-1 transition-all bg-gray-300 dark:bg-gray-900 dark:text-white shadow-2xl">
             <h1 className="text-3xl font-bold cursor-pointer" onClick={() => navigate('/')}>GIAR</h1>
             {
                 isLogged && (
@@ -74,7 +74,7 @@ function Header() {
                             </button>
 
                             <button
-                                className="bg-white text-red-500 rounded px-3 py-1 border-2 border-red-500 hover:shadow-2xl hover:bg-red-500 hover:text-white transition-all"
+                                className="px-4 py-2 bg-white dark:bg-slate-700 font-bold dark:text-white rounded hover:bg-red-500 hover:text-white transition-all"
                                 onClick={quizStarted ? () => {alert("Can't logout amid test!")} : handleLogout }
                             >
                                 Logout
