@@ -37,8 +37,8 @@ function Login() {
     }
 
     return (
-        <div className="w-full h-[100vh] flex items-center justify-center bg-white dark:bg-slate-700 transition-colors font-mono">
-            <div className="min-w-md h-auto mx-auto text-black dark:text-white bg-gray-200 dark:bg-slate-800 rounded-md">
+        <div className="w-full min-h-screen flex items-center justify-center bg-white dark:bg-slate-700 transition-colors font-mono">
+            <div className="min-w-md mx-auto text-black dark:text-white bg-gray-200 dark:bg-slate-800 rounded-md">
                 <h1 className="text-center font-semibold text-5xl m-5">Login</h1>
                 <form onSubmit={handleLogin} className="flex flex-col p-5">
 
