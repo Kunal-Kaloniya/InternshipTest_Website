@@ -16,19 +16,19 @@ function IntroPage() {
                         <p>Select from Math, Science, or Computer Science</p>
                     </div>
                     <div className="bg-white text-black shadow-md rounded-lg p-5 border">
-                        <h3 className="text-xl font-bold">⏲️ Timed Quizzes</h3>
+                        <h3 className="text-xl font-bold">⏲️ Timed Tests</h3>
                         <p>Answer under pressure with a live timer</p>
                     </div>
                     <div className="bg-white text-black shadow-md rounded-lg p-5 border">
                         <h3 className="text-xl font-bold">📊 Track Your Progress</h3>
-                        <p>See your quiz history and performance</p>
+                        <p>See your test history and performance</p>
                     </div>
                 </div>
             </main>
 
             {/* Footer */}
             <footer className="w-full text-center py-4 text-sm bg-gray-300 dark:bg-slate-900">
-                Made by Kunal • QuizApp__ © 2025
+                Made by Kunal • GIAR Internship Test © 2025
             </footer>
         </div>
     );

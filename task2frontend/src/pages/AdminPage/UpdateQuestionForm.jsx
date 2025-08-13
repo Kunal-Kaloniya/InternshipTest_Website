@@ -1,10 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import Toast from "../../components/Toast";
+import { toast } from "react-toastify";
 
 const UpdateQuestionForm = () => {
 
-    const [toast, setToast] = useState({ text: "", type: "default" });
     const [form, setForm] = useState({
         "question": "",
         "section": "",
@@ -37,8 +36,10 @@ const UpdateQuestionForm = () => {
             if (response.status === 200) {
                 setIsQuesValid(true);
             }
+            
+            toast.info("Question found!");
         } catch (err) {
-            setToast({ text: "Question not found!", type: "error" });
+            toast.warn("Question not found!");
         }
     }
 
@@ -52,7 +53,7 @@ const UpdateQuestionForm = () => {
                 }
             });
 
-            setToast({ text: "Question updated successfully!", type: "success" });
+            toast.success("Question updated successfully!");
             setForm({
                 "question": "",
                 "section": "",
@@ -65,7 +66,7 @@ const UpdateQuestionForm = () => {
             setQuesId("");
             setIsQuesValid(false);
         } catch (err) {
-            setToast({ text: "Failed to update question!", type: "error" });
+            toast.error("Failed to update question!");
         }
     }
 
@@ -224,9 +225,6 @@ const UpdateQuestionForm = () => {
                     </div>
                 </form>
             )}
-
-
-            <Toast text={toast.text} type={toast.type} />
         </div>
     );
 }

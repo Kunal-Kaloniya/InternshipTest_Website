@@ -1,10 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import Toast from "../../components/Toast";
+import { toast } from "react-toastify";
 
 const AddQuestionForm = () => {
 
-    const [toast, setToast] = useState({ text: "", type: "default" });
     const [form, setForm] = useState({
         "question": "",
         "section": "",
@@ -35,7 +34,7 @@ const AddQuestionForm = () => {
                 }
             });
 
-            setToast({ text: "Question added successfully!", type: "success" });
+            toast.success("Question added successfully!");
             setForm({
                 "question": "",
                 "section": "",
@@ -45,7 +44,7 @@ const AddQuestionForm = () => {
                 "explanation": ""
             })
         } catch (err) {
-            setToast({ text: "Failed to add question!", type: "error" });
+            toast.error("Failed to add question!");
         }
     }
 
@@ -180,8 +179,6 @@ const AddQuestionForm = () => {
                     </button>
                 </div>
             </form>
-
-            <Toast text={toast.text} type={toast.type} />
         </div>
     );
 }

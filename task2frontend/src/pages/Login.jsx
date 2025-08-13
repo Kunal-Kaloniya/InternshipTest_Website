@@ -2,14 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-import Toast from "../components/Toast.jsx";
+import { toast } from "react-toastify";
 
 function Login() {
 
     const { login } = useContext(AuthContext);
 
     const [form, setForm] = useState({ email: "", password: "" });
-    const [toast, setToast] = useState({ text: "", type: "default" });
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -29,9 +28,10 @@ function Login() {
                 id: res.data.user._id,
             });
             setForm({ email: "", password: "" });
+            toast.success("Login successfull!");
             navigate("/home");
         } catch (err) {
-            setToast({ text: "Login Failed", type: "error" });
+            toast.error("Login Failed");
             console.error("Login Error: ", err.message);
         }
     }
@@ -73,8 +73,6 @@ function Login() {
                     New here?
                     <Link to="/signup" className="text-blue-500 pl-2 font-bold">SignUp</Link>
                 </p>
-
-                <Toast text={toast.text} type={toast.type} />
             </div>
         </div>
     );

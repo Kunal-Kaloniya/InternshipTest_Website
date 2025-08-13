@@ -24,7 +24,7 @@ function Header() {
         },{
             id: 3,
             to: '/home',
-            text: "Quiz"
+            text: "Test"
         },
     ]
 

@@ -6,6 +6,14 @@ const ViewQuestions = () => {
     const [category, setCategory] = useState("");
     const [questions, setQuestions] = useState([]);
 
+    const testCategories = [
+        "Directorate of Biological Sciences",
+        "Directorate of Physical Sciences",
+        "Directorate of Chemical Sciences",
+        "Directorate of Mathematical Sciences",
+        "Directorate of Applied Research"
+    ];
+
     const fetchFilteredQuestions = async () => {
         try {
             const response = await axios.get("http://localhost:3000/admin/all-questions", {
@@ -19,7 +27,6 @@ const ViewQuestions = () => {
 
             setQuestions(response.data);
         } catch (err) {
-            // setMessage({ status: "fail", msg: "Failed to fetch questions!" });
             console.error("Failed to fetch questions: ", err);
         }
     }
@@ -34,11 +41,9 @@ const ViewQuestions = () => {
                     className="border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
                 >
                     <option value="">All Categories</option>
-                    <option value="Directorate of Biological Sciences">Directorate of Biological Sciences</option>
-                    <option value="Directorate of Physical Sciences">Directorate of Physical Sciences</option>
-                    <option value="Directorate of Chemical Sciences">Directorate of Chemical Sciences</option>
-                    <option value="Directorate of Mathematical Sciences">Directorate of Mathematical Sciences</option>
-                    <option value="Directorate of Applied Research">Directorate of Applied Research</option>
+                    {testCategories.map((option, index) => (
+                        <option key={index} value={option}>{option}</option>
+                    ))}
                 </select>
 
                 <button

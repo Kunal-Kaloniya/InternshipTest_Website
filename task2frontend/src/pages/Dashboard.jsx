@@ -3,7 +3,6 @@ import { AuthContext } from "../context/AuthContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ThemeContext } from "../context/ThemeContext";
 import Leaderboard from "../components/Leaderboard.jsx";
 
 function Dashboard() {

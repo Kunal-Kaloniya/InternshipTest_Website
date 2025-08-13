@@ -1,12 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import Toast from "../components/Toast";
+import { toast } from "react-toastify";
 
 function Signup() {
 
     const [form, setForm] = useState({ username: "", email: "", password: "" });
-    const [toast, setToast] = useState({ text: "", type: "default" });
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -19,10 +18,10 @@ function Signup() {
         try {
             const res = await axios.post("http://localhost:3000/signup", form);
             setForm({ username: "", email: "", password: "" });
+            toast.success("Signup successfull!");
             navigate("/login");
         } catch (err) {
-            setToast({ text: "Signup Failed", type: "error" });
-            console.error("Signup Error: ", err);
+            toast.error("Signup failed!");
         }
     }
 
@@ -67,8 +66,6 @@ function Signup() {
                     Already a user? Try
                     <Link to="/login" className="text-blue-500 pl-2 font-bold">Loging in</Link>
                 </p>
-
-                <Toast text={toast.text} type={toast.type} />
             </div>
         </div>
     );
