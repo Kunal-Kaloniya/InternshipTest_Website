@@ -34,7 +34,7 @@ function Header() {
     }
 
     return (
-        <nav id="header" className="w-full h-[10vh] font-mono px-10 py-4 flex items-center justify-between fixed top-0 left-0 right-0 z-1 transition-all bg-gray-300 dark:bg-gray-900 dark:text-white shadow-2xl">
+        <nav id="header" className="w-full h-[10vh] font-mono px-10 py-4 flex items-center justify-between fixed top-0 left-0 right-0 z-1 transition-all bg-gray-400 dark:bg-gray-900 dark:text-white shadow-2xl">
             <h1 className="text-3xl font-bold cursor-pointer" onClick={() => navigate('/')}>GIAR</h1>
             {
                 isLogged && (

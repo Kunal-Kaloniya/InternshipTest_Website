@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Toast from "../../components/Toast";
 
 const ManageUsers = () => {
 
+    const [toast, setToast] = useState({ text: "", type: "default" });
     const [users, setUsers] = useState([]);
 
     const fetchUsers = async () => {
@@ -16,8 +18,7 @@ const ManageUsers = () => {
             setUsers(response.data);
 
         } catch (err) {
-            // setMessage({ status: "fail", msg: "Failed to fetch users!" });
-            console.error("Failed to fetch users: ", err);
+            setToast({ text: "Failed to fetch users!", type: "error" });
         }
     }
 
@@ -38,10 +39,9 @@ const ManageUsers = () => {
             })
 
             setUsers(newUserArr);
-            setMessage({ status: "pass", msg: "Successfully deleted the user!" })
+            setToast({ text: "User deleted successfully!", type: "success" });
         } catch (err) {
-            setMessage({ status: "fail", msg: "Failed to Delete the user!" });
-            console.error("Failed to delete user: ", err);
+            setToast({ text: "Failed to delete the user!", type: "error" });
         }
     }
 
@@ -92,6 +92,8 @@ const ManageUsers = () => {
                     ))}
                 </div>
             )}
+            
+            <Toast text={toast.text} type={toast.type} />
         </div>
 
     );

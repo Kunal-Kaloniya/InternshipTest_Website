@@ -37,7 +37,7 @@ function Admin() {
                         <button
                             key={tab}
                             onClick={() => handleTabChange(tab)}
-                            className={`w-full text-left px-6 py-3 transition-colors font-medium rounded-md ${activeTab === tab
+                            className={`w-full text-left px-6 py-3 transition-colors font-medium ${activeTab === tab
                                     ? "bg-blue-600 text-white shadow"
                                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                                 }`}

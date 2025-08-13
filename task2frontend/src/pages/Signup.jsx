@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import Toast from "../components/Toast";
 
 function Signup() {
 
     const [form, setForm] = useState({ username: "", email: "", password: "" });
-    const [message, setMessage] = useState("");
+    const [toast, setToast] = useState({ text: "", type: "default" });
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -17,11 +18,10 @@ function Signup() {
 
         try {
             const res = await axios.post("http://localhost:3000/signup", form);
-            setMessage(res.data.message);
             setForm({ username: "", email: "", password: "" });
             navigate("/login");
         } catch (err) {
-            setMessage("Signup Failed!");
+            setToast({ text: "Signup Failed", type: "error" });
             console.error("Signup Error: ", err);
         }
     }
@@ -68,11 +68,7 @@ function Signup() {
                     <Link to="/login" className="text-blue-500 pl-2 font-bold">Loging in</Link>
                 </p>
 
-                {
-                    message && (
-                        <p className="bg-gray-200 text-center rounded-b-md text-red-500">{message}</p>
-                    )
-                }
+                <Toast text={toast.text} type={toast.type} />
             </div>
         </div>
     );

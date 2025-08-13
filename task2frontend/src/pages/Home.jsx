@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import Toast from "../components/Toast";
 
 function Home() {
 
@@ -9,7 +10,7 @@ function Home() {
     const [categories, setCategories] = useState([]);
 
     const [category, setCategory] = useState("");
-    const [message, setMessage] = useState("");
+    const [toast, setToast] = useState({ text: "", type: "default" });
 
     const instructionList = [
         { id: 1, i: "Read all questions carefully before answering." },
@@ -37,20 +38,14 @@ function Home() {
         getCategories();
     }, [])
 
-    useEffect(() => {
-        setTimeout(() => {
-            setMessage("")
-        }, 5000)
-    }, [message, setMessage])
-
 
     const handleClick = async () => {
         if (!category) {
-            setMessage("Please select the test category!");
+            setToast({ text: "Please select the test category!", type: "default" });
             return;
         }
 
-        setMessage("");
+        setToast({ text: "", type: "default" });
         navigate("/quiz", { state: { category } });
     }
 
@@ -111,11 +106,8 @@ function Home() {
                     </section>
                 </main>
 
-                {
-                    message && (
-                        <p className="m-4 bg-amber-700 text-white text-center p-5 absolute top-[10vh] right-2">{message}</p>
-                    )
-                }
+
+                <Toast text={toast.text} type={toast.type} />
             </div>
         </div >
     );

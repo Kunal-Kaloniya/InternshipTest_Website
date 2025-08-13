@@ -34,7 +34,7 @@ function Leaderboard() {
                                 <th className="p-2">Rank</th>
                                 <th className="p-2">Username</th>
                                 <th className="p-2">Total Score</th>
-                                <th className="p-2">Quizzes Taken</th>
+                                <th className="p-2">Tests Taken</th>
                             </tr>
                         </thead>
                         <tbody>

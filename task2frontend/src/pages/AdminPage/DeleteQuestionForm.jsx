@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import Toast from "../../components/Toast";
 
 const DeleteQuestionForm = () => {
 
+    const [toast, setToast] = useState({ text: "", type: "default" });
     const [quesId, setQuesId] = useState("");
     const [isQuesValid, setIsQuesValid] = useState(false);
 
@@ -18,8 +20,7 @@ const DeleteQuestionForm = () => {
                 setIsQuesValid(true);
             }
         } catch (err) {
-            // setMessage({ status: "fail", msg: "Question Search failed!" });
-            console.error("Question Search failed: ", err);
+            setToast({ text: "Question not found!", type: "error" });
         }
     }
 
@@ -31,12 +32,11 @@ const DeleteQuestionForm = () => {
                 }
             })
 
-            // setMessage({ status: "pass", msg: "Successfully deleted the question!" });
+            setToast({ text: "Question deleted successfully!", type: "success" });
             setQuesId("");
             setIsQuesValid(false);
         } catch (err) {
-            // setMessage({ status: "fail", msg: "Failed to Delete the question!" });
-            console.error("Failed to delete question: ", err);
+            setToast({ text: "Failed to delete question!", type: "error" });
         }
     }
 
@@ -83,6 +83,9 @@ const DeleteQuestionForm = () => {
                     Delete Question
                 </button>
             )}
+
+
+            <Toast text={toast.text} type={toast.type} />
         </div>
 
     );

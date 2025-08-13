@@ -1,14 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import Toast from "../components/Toast.jsx";
 
 function Login() {
 
     const { login } = useContext(AuthContext);
 
     const [form, setForm] = useState({ email: "", password: "" });
-    const [message, setMessage] = useState("");
+    const [toast, setToast] = useState({ text: "", type: "default" });
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -20,7 +21,6 @@ function Login() {
 
         try {
             const res = await axios.post("http://localhost:3000/login", form);
-            setMessage(res.data.message);
             localStorage.setItem("token", res.data.token);
             login({
                 username: res.data.user.username,
@@ -31,8 +31,8 @@ function Login() {
             setForm({ email: "", password: "" });
             navigate("/home");
         } catch (err) {
-            setMessage("Login Failed!");
-            console.error("Login Error: ", err);
+            setToast({ text: "Login Failed", type: "error" });
+            console.error("Login Error: ", err.message);
         }
     }
 
@@ -74,11 +74,7 @@ function Login() {
                     <Link to="/signup" className="text-blue-500 pl-2 font-bold">SignUp</Link>
                 </p>
 
-                {
-                    message && (
-                        <p className="bg-gray-200 text-center rounded-b-md text-red-500">{message}</p>
-                    )
-                }
+                <Toast text={toast.text} type={toast.type} />
             </div>
         </div>
     );

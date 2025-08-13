@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import Toast from "../../components/Toast";
 
 const UpdateQuestionForm = () => {
 
+    const [toast, setToast] = useState({ text: "", type: "default" });
     const [form, setForm] = useState({
         "question": "",
         "section": "",
@@ -36,8 +38,7 @@ const UpdateQuestionForm = () => {
                 setIsQuesValid(true);
             }
         } catch (err) {
-            // setMessage({ status: "fail", msg: "Question Search failed!" });
-            console.error("Question Search failed: ", err);
+            setToast({ text: "Question not found!", type: "error" });
         }
     }
 
@@ -51,7 +52,7 @@ const UpdateQuestionForm = () => {
                 }
             });
 
-            // setMessage({ status: "pass", msg: "Successfully updated the question!" });
+            setToast({ text: "Question updated successfully!", type: "success" });
             setForm({
                 "question": "",
                 "section": "",
@@ -64,8 +65,7 @@ const UpdateQuestionForm = () => {
             setQuesId("");
             setIsQuesValid(false);
         } catch (err) {
-            // setMessage({ status: "fail", msg: "Failed to update the question!" });
-            console.error("Error updating question: ", err);
+            setToast({ text: "Failed to update question!", type: "error" });
         }
     }
 
@@ -224,6 +224,9 @@ const UpdateQuestionForm = () => {
                     </div>
                 </form>
             )}
+
+
+            <Toast text={toast.text} type={toast.type} />
         </div>
     );
 }
