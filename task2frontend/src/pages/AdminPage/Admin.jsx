@@ -8,21 +8,11 @@ import ManageUsers from "./ManageUsers";
 
 function Admin() {
 
-    const [message, setMessage] = useState({ status: "fail", msg: "" });
     const [activeTab, setActiveTab] = useState("add");
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
     }
-
-    useEffect(() => {
-        if (message.msg !== "") {
-            const timer = setTimeout(() => {
-                setMessage({ status: "", msg: "" });
-            }, 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [message]);
 
     return (
         <div className="min-h-screen font-sans bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex">
@@ -64,17 +54,6 @@ function Admin() {
                 {activeTab === "questions" && <ViewQuestions />}
                 {activeTab === "users" && <ManageUsers />}
             </main>
-
-            {message.msg && (
-                <div
-                    className={`fixed bottom-5 right-5 px-6 py-3 rounded-md shadow-lg ${message.status === "pass"
-                            ? "bg-green-500 text-white"
-                            : "bg-red-500 text-white"
-                        }`}
-                >
-                    {message.msg}
-                </div>
-            )}
         </div>
 
     );
